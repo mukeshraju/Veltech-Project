@@ -1,5 +1,7 @@
 # %%
 import getpass
+from langchain.tools import tool
+
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
@@ -11,6 +13,7 @@ from getpass import getpass  # Import the getpass() FUNCTION
 import os
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader
+
 # ! pip install pypdf
 # ! pip install langchain-community
 # ! pip install langchain-chroma
@@ -132,7 +135,8 @@ if not os.environ.get("TAVILY_API_KEY"):
     os.environ["TAVILY_API_KEY"] = getpass.getpass("Tavily API key:\n")
 
 # %%
-from langchain_tavily import TavilySearch
+
+
 
 tool = TavilySearch(
     max_results=5,
@@ -161,6 +165,6 @@ model_generated_tool_call = {
 tool_msg = tool.invoke(model_generated_tool_call)
 
 # The content is a JSON string of results
-print(tool_msg.content[:400])
+# print(tool_msg.content[:400])
 
 
